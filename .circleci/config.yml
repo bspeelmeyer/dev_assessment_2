@@ -14,7 +14,6 @@ commands:
             echo aws_secret_access_key=${aws_secret_access_key} >> credentials
             echo aws_session_token=${aws_session_token} >> credentials
             
-  
   install_deps:
     steps:
       - run:
@@ -42,15 +41,6 @@ commands:
             pwd
             ./run.sh
  
-
-  terra_destroy:
-    steps:
-      - run:
-          name: Terraform destroy
-          command: |
-            make down
-  
-
 jobs:
   ci-build:
     docker:
@@ -60,10 +50,7 @@ jobs:
       - get_aws_creds
       - install_deps
       - run_deployment
-      - terra_destroy
-
-  
-
+     
 workflows:
   build-and-packge:
     jobs:

@@ -15,5 +15,3 @@ data "aws_ami" "latest_version_amazon_linux" {
 
 
 
-
-
