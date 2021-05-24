@@ -12,6 +12,7 @@ commands:
             cd .aws/
             pwd
             sudo touch credentails
+            sudo chmod 777 credentials
             sudo echo [default] >> credentails
             sudo echo aws_access_key_id=${aws_access_key_id} >> credentails
             sudo echo aws_secret_access_key=${aws_secret_access_key} >> credentails
