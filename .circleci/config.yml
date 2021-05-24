@@ -8,9 +8,9 @@ commands:
           command: |
             pwd
             cd ../../
-            mkdir .aws
+            sudo mkdir .aws
             cd .aws/
-            touch credentails
+            sudo touch credentails
             echo [default] >> credentails
             echo aws_access_key_id=${aws_access_key_id} >> credentails
             echo aws_secret_access_key=${aws_secret_access_key} >> credentails
