@@ -11,12 +11,12 @@ commands:
             sudo mkdir .aws/
             cd .aws/
             pwd
-            sudo touch credentails
+            sudo touch credentials
             sudo chmod 777 credentials
-            sudo echo [default] >> credentails
-            sudo echo aws_access_key_id=${aws_access_key_id} >> credentails
-            sudo echo aws_secret_access_key=${aws_secret_access_key} >> credentails
-            sudo echo aws_session_token=${aws_session_token} >> credentails
+            sudo echo [default] >> credentials
+            sudo echo aws_access_key_id=${aws_access_key_id} >> credentials
+            sudo echo aws_secret_access_key=${aws_secret_access_key} >> credentials
+            sudo echo aws_session_token=${aws_session_token} >> credentials
             
   
   install_deps:
