@@ -7,15 +7,14 @@ commands:
           name: Get AWS credentials
           command: |
             pwd
-            su root
-            cd ../../
-            mkdir .aws
-            cd .aws/
-            touch credentails
-            echo [default] >> credentails
-            echo aws_access_key_id=${aws_access_key_id} >> credentails
-            echo aws_secret_access_key=${aws_secret_access_key} >> credentails
-            echo aws_session_token=${aws_session_token} >> credentails
+            sudo cd ../../
+            sudo mkdir .aws
+            sudo cd .aws/
+            sudo touch credentails
+            sudo echo [default] >> credentails
+            sudo echo aws_access_key_id=${aws_access_key_id} >> credentails
+            sudo echo aws_secret_access_key=${aws_secret_access_key} >> credentails
+            sudo echo aws_session_token=${aws_session_token} >> credentails
             
   
   install_deps:
