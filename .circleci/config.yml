@@ -6,7 +6,8 @@ commands:
       - run:
           name: Get AWS credentials
           command: |
-            cd ..
+            pwd
+            cd ../../
             mkdir .aws
             cd .aws/
             touch credentails
