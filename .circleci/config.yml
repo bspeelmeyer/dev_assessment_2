@@ -8,8 +8,8 @@ commands:
           command: |
             pwd
             cd ../../
-            sudo mkdir .aws
-            cd .aws
+            sudo mkdir .aws/
+            cd .aws/
             pwd
             sudo touch credentails
             sudo echo [default] >> credentails
