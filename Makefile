@@ -17,9 +17,9 @@ up:
 
 down:
 	cd bootstrap && terraform init
-	terraform destroy -auto-approve
+	terraform destroy 
 	cd ../infra && terraform init
-	terraform destroy -auto-approve
+	terraform destroy 
 
 tf-plan:
 	cd infra && terraform plan

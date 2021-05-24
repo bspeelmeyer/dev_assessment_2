@@ -48,7 +48,6 @@ commands:
       - run:
           name: Terraform destroy
           command: |
-            cd ~/Home/cicrleci/projects/
             make down
   
 
@@ -61,22 +60,13 @@ jobs:
       - get_aws_creds
       - install_deps
       - run_deployment
-
-  ci-destroy:
-    docker:
-      - image: circleci/node:lts
-    steps:
-      - checkout
-      - get_aws_creds
-      - install_deps
       - terra_destroy
+
+  
 
 workflows:
   build-and-packge:
     jobs:
       - ci-build
-      - ci-destroy:
-          type: approval
-          requires:
-           - ci-build
+      
           
