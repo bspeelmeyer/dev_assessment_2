@@ -1,0 +1,46 @@
+- name: Deploy Application
+  hosts: all
+
+  tasks:
+    
+    - name: Install nvm
+      shell: >
+        curl https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | sh
+        creates=/home/ec2-user.nvm/nvm.sh
+
+    - name: Install node and set version
+      shell: >
+        /bin/bash -c "source ~/.nvm/nvm.sh && nvm install 16.2 && nvm alias default 16.2"
+        creates=/home/ec2-user/.nvm/alias
+
+    - name: copy artifact to instance
+      ansible.builtin.unarchive:
+        src: simpletodoapp-1.0.1.tgz
+        dest: ~/
+
+    - name: install app deps
+      npm:
+        path: /home/ec2-user/package/
+
+    - name: deploy systemd template
+      become: yes
+      template:
+        dest: /usr/lib/systemd/system/todoapp.service
+        src: todoapp.service.tpl
+
+    - name: restart systemd condig
+      become: yes
+      ansible.builtin.systemd:
+        name: todoapp.service
+
+    - name: start todo app service
+      become: yes
+      ansible.builtin.systemd:
+        name: todoapp.service   
+        state: started
+
+        
+
+        
+
+   

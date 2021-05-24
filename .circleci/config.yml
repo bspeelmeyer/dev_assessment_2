@@ -1,0 +1,83 @@
+version: 2.1
+
+commands:
+  get_aws_creds:
+    steps:
+      - run:
+          name: Get AWS credentials
+          command: |
+            cd ..
+            mkdir .aws
+            cd .aws/
+            touch credentails
+            echo [default] >> credentails
+            echo aws_access_key_id=${aws_access_key_id} >> credentails
+            echo aws_secret_access_key=${aws_secret_access_key} >> credentails
+            echo aws_session_token=${aws_session_token} >> credentails
+            
+  
+  install_deps:
+    steps:
+      - run:
+          name: Install Deps
+          command: |
+            sudo apt-get update
+            sudo apt-get install build-essential
+            sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            sudo apt-get update && sudo apt-get install terraform
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+            curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
+            python get-pip.py --user
+            sudo python get-pip.py
+            sudo python -m pip install ansible
+          
+  run_deployment:
+    steps:
+      - run:
+          name: Run Deployment
+          command: |
+            pwd
+            ./run.sh
+ 
+
+  terra_destroy:
+    steps:
+      - run:
+          name: Terraform destroy
+          command: |
+            cd ~/Home/cicrleci/projects/
+            make down
+  
+
+jobs:
+  ci-build:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - get_aws_creds
+      - install_deps
+      - run_deployment
+
+  ci-destroy:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - get_aws_creds
+      - install_deps
+      - terra_destroy
+
+workflows:
+  build-and-packge:
+    jobs:
+      - ci-build
+      - ci-destroy:
+          type: approval
+          requires:
+           - ci-build
+          
