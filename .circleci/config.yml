@@ -7,7 +7,7 @@ commands:
           name: Get AWS credentials
           command: |
             pwd
-            sudo cd ../../
+            cd ../../
             sudo mkdir .aws
             sudo cd .aws/
             sudo touch credentails
