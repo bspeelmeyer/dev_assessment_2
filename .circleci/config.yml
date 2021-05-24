@@ -9,6 +9,7 @@ commands:
             pwd
             cd ../../
             sudo mkdir .aws/
+            sudo chmod 777 .aws
             cd .aws/
             pwd
             sudo touch credentials
