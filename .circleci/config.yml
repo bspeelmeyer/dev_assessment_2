@@ -6,18 +6,13 @@ commands:
       - run:
           name: Get AWS credentials
           command: |
-            pwd
-            cd ../../
-            sudo mkdir .aws/
-            sudo chmod 777 .aws
-            cd .aws/
-            pwd
-            sudo touch credentials
-            sudo chmod 777 credentials
-            sudo echo [default] >> credentials
-            sudo echo aws_access_key_id=${aws_access_key_id} >> credentials
-            sudo echo aws_secret_access_key=${aws_secret_access_key} >> credentials
-            sudo echo aws_session_token=${aws_session_token} >> credentials
+            mkdir ~/.aws/
+            cd ~/.aws/            
+            touch credentials
+            echo [default] >> credentials
+            echo aws_access_key_id=${aws_access_key_id} >> credentials
+            echo aws_secret_access_key=${aws_secret_access_key} >> credentials
+            echo aws_session_token=${aws_session_token} >> credentials
             
   
   install_deps:
